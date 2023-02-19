@@ -1,6 +1,13 @@
 import { NextFunction, Request, Response } from "express";
+import PubModel from "../models/pub.model";
 import { createPubInput } from "../schema/pub.schema";
-import { createPub, deletePub, getAllPubs } from "../services/pub.service";
+import {
+  createPub,
+  deletePub,
+  getAllPubs,
+  getPub,
+  updatePub,
+} from "../services/pub.service";
 import AppError from "../utils/appError";
 import catchAsync from "../utils/catchAsync";
 
@@ -45,6 +52,41 @@ export const getAllPubsHandler = catchAsync(
     res.status(200).json({
       status: "success",
       data: pubs.length === 0 ? { message: "no pubs found" } : { pubs },
+    });
+  }
+);
+
+export const getPubHandler = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const pub: object = await getPub(req.params.pubId);
+    if (!pub) {
+      return next(new AppError("No pub found with that ID", 404));
+    }
+    res.status(200).json({
+      status: "success",
+      data: {
+        pub,
+      },
+    });
+  }
+);
+
+export const updatePubHandler = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const pub: object = await updatePub(
+      req.params.pubId,
+      req.body,
+      res.locals.user
+    );
+
+    if (!pub) {
+      return next(new AppError("No pub found with that ID", 404));
+    }
+    res.status(200).json({
+      status: "success",
+      data: {
+        pub,
+      },
     });
   }
 );

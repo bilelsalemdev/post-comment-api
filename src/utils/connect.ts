@@ -6,7 +6,6 @@ dotenv.config({ path: "../../config.env" });
 
 async function connect() {
   const dbUrl = config.DATABASE;
-  console.log(dbUrl);
 
   try {
     await mongoose.connect(dbUrl);

@@ -55,3 +55,35 @@ export async function getAllPubs() {
     return new AppError(error, 404);
   }
 }
+
+export async function getPub(id: any) {
+  try {
+    const pub = await PubModel.findById(id);
+    return pub;
+  } catch (error) {
+    return new AppError(error, 404);
+  }
+}
+
+export async function updatePub(id: any, body: object, user: any) {
+  try {
+    const pubToUpdate = await PubModel.findById(id);
+    const pubToUpdateUserId = pubToUpdate?.user.toString();
+    const userId = user._id.toString();
+
+    //return pub;
+    if (user.role === "user") {
+      if (pubToUpdateUserId === userId) {
+        await PubModel.findByIdAndUpdate(id, body);
+        const pubUpdated = await PubModel.findById(id);
+        return pubUpdated;
+      }
+    } else if (user.role === "admin") {
+      await PubModel.findByIdAndUpdate(id, body);
+      const pubUpdated = await PubModel.findById(id);
+      return pubUpdated;
+    }
+  } catch (error) {
+    return new AppError(error, 404);
+  }
+}

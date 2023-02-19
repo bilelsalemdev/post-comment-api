@@ -27,6 +27,13 @@ pubSchema.pre("save", async function (next) {
   this.user = userId;
   next();
 }); */
+/* pubSchema.pre(/^findOneAnd/, async function (next) {
+  const pub = await this.findOne();
+  this.title = pub.title;
+  this.description = pub.description;
+  this.status = pub.status;
+  next();
+}); */
 
 const PubModel = mongoose.model<PubDocument>("Pub", pubSchema);
 

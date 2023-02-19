@@ -9,6 +9,8 @@ import {
   createPubHandler,
   deletePubHandler,
   getAllPubsHandler,
+  getPubHandler,
+  updatePubHandler,
 } from "./controllers/pub.controller";
 import { createPubSchema } from "./schema/pub.schema";
 import { setPubUserId } from "./services/pub.service";
@@ -28,7 +30,8 @@ function routes(app: Express) {
     setPubUserId,
     createPubHandler
   );
-  app.patch("/api/pubs/:pubId");
+  app.get("/api/pubs/:pubId", protect, getPubHandler);
+  app.patch("/api/pubs/:pubId", protect, updatePubHandler);
   app.delete("/api/pubs/:pubId", protect, deletePubHandler);
   app.get("/api/users");
   app.get("/api/users/:userId");
