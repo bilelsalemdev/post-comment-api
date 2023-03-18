@@ -24,7 +24,7 @@
     "pino-pretty": "^9.2.0",
     "util": "^0.12.5",
     "zod": "^3.20.6",
-    "zod-validation-error": "^0.3.1"
+    "zod-validation-error": "^0.3.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
