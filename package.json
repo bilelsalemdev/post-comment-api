@@ -21,7 +21,7 @@
     "mongoose": "^6.9.1",
     "nanoid": "^4.0.1",
     "pino": "^8.10.0",
-    "pino-pretty": "^9.2.0",
+    "pino-pretty": "^10.3.0",
     "util": "^0.12.5",
     "zod": "^3.20.6",
     "zod-validation-error": "^0.3.1"
